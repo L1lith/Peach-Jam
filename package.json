@@ -1,0 +1,47 @@
+{
+  "name": "peach-jam",
+  "version": "0.0.1",
+  "description": "Ultra-high performance game framework for the web",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pretty": "prettier --write \"src/**/*.js\"",
+    "build": "rm -rf dist && mkdir dist && babel src -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/L1lith/Peach-Jam.git"
+  },
+  "keywords": [
+    "game",
+    "framework",
+    "dev",
+    "high",
+    "performance",
+    "webgpu",
+    "webassembly",
+    "browser"
+  ],
+  "author": "L1lith",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/L1lith/Peach-Jam/issues"
+  },
+  "homepage": "https://github.com/L1lith/Peach-Jam#readme",
+  "dependencies": {
+    "@babel/preset-react": "^7.16.7",
+    "@dimforge/rapier2d": "^0.8.0-alpha.0",
+    "auto-bind": "^5.0.1",
+    "sandhands": "^1.8.9"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.3",
+    "@babel/core": "^7.17.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.17.3",
+    "@babel/preset-env": "^7.16.11",
+    "babel-cli": "^6.26.0"
+  }
+}
