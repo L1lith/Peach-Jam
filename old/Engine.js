@@ -1,7 +1,8 @@
 import { sanitize } from 'sandhands'
 import autoBind from 'auto-bind'
-import PhysicsPlugin from './PhysicsPlugin'
-import RendererPlugin from './RendererPlugin'
+import PhysicsPlugin from '../old/PhysicsPlugin'
+import RendererPlugin from '../old/RendererPlugin'
+import { createContext } from 'react'
 
 const optionsFormat = {
   _: {
@@ -13,6 +14,8 @@ const optionsFormat = {
 const defaultOptions = Object.freeze({
   withPhysics: false
 })
+
+export const EngineContext = createContext(null)
 
 class Engine {
   constructor(...args) {
