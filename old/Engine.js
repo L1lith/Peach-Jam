@@ -1,8 +1,8 @@
 import { sanitize } from 'sandhands'
 import autoBind from 'auto-bind'
-import PhysicsPlugin from '../old/PhysicsPlugin'
-import RendererPlugin from '../old/RendererPlugin'
-import { createContext } from 'react'
+import PhysicsPlugin from './PhysicsPlugin'
+import RendererPlugin from '../src/RendererPlugin'
+import { createContext } from 'solid-js'
 
 const optionsFormat = {
   _: {
@@ -46,6 +46,7 @@ class Engine {
     }
     this.physics = physicsPlugin
   }
+  addEntity() {}
   renderTo(element) {
     if (!element instanceof HTMLElement) throw new Error('Please supply an HTML element')
     // TODO: Render the game

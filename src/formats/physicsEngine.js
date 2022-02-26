@@ -15,7 +15,7 @@ export default {
         method => typeof physicsEngine[method] !== 'function'
       )
       if (!missingMethod) return true
-      return `PhysicsEngine Missing Method: ${missingMethod}`
+      return `PhysicsEngine instance Missing Method: ${missingMethod}`
     }
   ]
   //engine => typeof engine?.render == 'function' || 'Please supply a render function' // We don't need this anymore as the render function is passed to the constructor and validated there

@@ -1,36 +1,32 @@
-import { useContext } from 'react'
-import { EngineContext } from '../old/Engine'
+import { useContext, createSignal, createEffect, onCleanup, onMount } from 'solid-js'
+import EngineContext from './boiler/EngineContext'
 import useIsServer from './functions/useIsServer'
-import { sanitize } from 'sandhands'
 import positionFormat from './formats/position'
 import getComponentAttributes from './functions/getComponentProps'
 
-const propsFormat = { ...positionFormat, href: String }
-
 function Img(props) {
-  sanitize(props, propsFormat)
+  //sanitize(props, propsFormat)
+  console.log(props)
   const engine = useContext(EngineContext)
   const isServer = useIsServer()
-  const [entity, setEntity] = useState(null)
-  const attributes = getComponentAttributes(props, Object.keys(propsFormat))
+  const [entity, setEntity] = createSignal(null)
+  const attributes = getComponentAttributes(props, ['x', 'y', 'width', 'height', 'style'])
   attributes.style = {
     position: 'absolute',
-    left: (entity?.x || 0) + '%',
-    top: (entity?.y || 0) + '%',
-    width: (entity?.width || 100) + '%',
-    height: (entity?.height || 100) + '%'
+    left: (props.hasOwnProperty('x') ? props.x : 0) + '%',
+    top: (props.hasOwnProperty('y') ? props.y : 0) + '%',
+    width: (props.hasOwnProperty('width') ? props.width : 100) + '%',
+    height: (props.hasOwnProperty('height') ? props.height : 100) + '%'
   }
-  if (props.hasOwnProperty('style')) props.style = { ...attributes.style, ...props.style }
-  useEffect(() => {
-    let entity = null
-    if (engine) {
-      entity = engine.addEntity(props)
-      setEntity()
+  if (props.hasOwnProperty('style')) attributes.style = { ...attributes.style, ...props.style }
+  createEffect(() => {
+    if (engine && !entity) setEntity(engine.physics.addEntity(props))
+  })
+  onCleanup(() => {
+    if (entity) {
+      engine.physics.removeEntity(entity)
     }
-    return () => {
-      engine.removeEntity(entity)
-    }
-  }, [engine])
+  })
   if (!isServer) return null
   return <img href={props.href} {...attributes}></img>
 }
