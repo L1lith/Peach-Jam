@@ -1,26 +1,18 @@
 import autoBind from 'auto-bind'
-import Entity from './Entity'
 
 class PhysicsEngine {
   constructor() {
     this.clearEntities()
     autoBind(this)
   }
-  static Entity = Entity
   clearEntities() {
-    this.entities = []
+    this.entities = new WeakSet()
   }
-  addEntity(props) {
-    const entity = new this.constructor.Entity(props, this)
-    this.entities.push(entity)
-    return true
+  addEntity(entity) {
+    this.entities.add(entity)
   }
   removeEntity(entity) {
-    const index = this.entities.indexOf(entity)
-    if (index < 0) return false
-    this.entities.splice(index, 1)
-    entity.destroy()
-    return true
+    this.entities.delete(entity)
   }
 }
 

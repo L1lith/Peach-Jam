@@ -7,9 +7,9 @@ import './index.css';
 
 function App() {
     const [x, setX] = createSignal(0)
-    console.log(x)
     setInterval(()=> {
         setX((x() + 1) % 50)
+        //console.log('x', x())
     }, 100)
     return <Level><Img x={x()}/></Level>
 }

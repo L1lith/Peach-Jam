@@ -1,11 +1,11 @@
 import coordinateFormat from './formats/coordinate'
 
 class Entity {
-  constructor(position, physics) {
-    sanitize(position, positionFormat)
+  constructor(position, props = {}) {
+    //sanitize(position, positionFormat)
     this.position = position
-    this.physics = physics
-    physics.addEntity(this)
+    this.props = props
+    this.hasPhysics = props.physics == 'object' && props.physics !== null
   }
   destroy() {
     this.physics.removeEntity(this)
