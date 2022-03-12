@@ -1,11 +1,11 @@
 import EngineContext from '../boiler/EngineContext'
-import { onMount, onCleanup, useContext } from 'solid-js'
+import { onMount, onCleanup, useContext, createSignal } from 'solid-js'
 
 function useEntity(props) {
   const engine = useContext(EngineContext)
-  let entity
+  const entity = engine.createEntity(props)
+
   onMount(() => {
-    entity = engine.createEntity(props)
     engine.addEntity(entity)
   })
   onCleanup(() => {

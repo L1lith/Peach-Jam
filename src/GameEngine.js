@@ -8,13 +8,13 @@ class GameEngine {
     //if (typeof renderFunction != 'function') throw new Error('Please supply a render function')
     //this.renderer = renderFunction
     const physics = (this.physics = this.constructor.hasOwnProperty('Physics')
-      ? new this.constructor.Physics()
+      ? this.constructor.Physics
       : null)
     if (physics !== null && !(physics instanceof PhysicsEngine))
       throw new Error('Invalid Physics Engine Supplied. Expected a PhysicsEngine instance or null')
 
     const renderer = (this.renderer = this.constructor.hasOwnProperty('Renderer')
-      ? new this.constructor.Renderer()
+      ? this.constructor.Renderer
       : null)
     if (renderer !== null && !(renderer instanceof RenderEngine))
       throw new Error('Expected a render engine instance')
