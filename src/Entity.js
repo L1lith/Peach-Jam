@@ -2,10 +2,10 @@ import coordinateFormat from './formats/coordinate'
 
 class Entity {
   constructor(position, props = {}) {
-    //sanitize(position, positionFormat)
     this.position = position
     this.props = props
     this.hasPhysics = props.physics == 'object' && props.physics !== null
+    this.isRendered = !props.hasOwnProperty('isRendered') || !!props.isRendered
   }
   destroy() {
     this.physics.removeEntity(this)

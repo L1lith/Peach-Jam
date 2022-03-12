@@ -14,6 +14,9 @@ class PhysicsEngine {
   removeEntity(entity) {
     this.entities.delete(entity)
   }
+  doPhysicsTick() {
+    // Here: Calculate and call onCollision handlers
+  }
 }
 
 export default PhysicsEngine
