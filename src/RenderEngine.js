@@ -1,3 +1,5 @@
+import autoBind from 'auto-bind'
+
 class RenderEngine {
   constructor() {
     this.clearEntities()
@@ -7,6 +9,7 @@ class RenderEngine {
     this.entities = new WeakSet()
   }
   addEntity(entity) {
+    console.log({ entity })
     this.entities.add(entity)
   }
   removeEntity(entity) {

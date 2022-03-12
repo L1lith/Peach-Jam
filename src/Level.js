@@ -20,7 +20,7 @@ function Level(props) {
       ? providedChildren
       : engine.renderer.render(providedChildren)
   }
-  console.log({ engine })
+  window.engine = engine
   return (
     <EngineContext.Provider value={engine}>
       <div {...attributes} className="level">
