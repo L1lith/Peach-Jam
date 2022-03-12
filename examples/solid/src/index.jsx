@@ -6,7 +6,7 @@ import GameEngine from './GameEngine';
 import './index.css';
 
 function App() {
-    return <Level engine={GameEngine}><Img x={0}/></Level>
+    return <Level engine={GameEngine}><Img src="/tomato.jpg" x={0}/></Level>
 }
 
 render(App, document.getElementById('root'));

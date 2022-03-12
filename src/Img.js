@@ -14,8 +14,9 @@ function Img(props) {
     if (local.hasOwnProperty('style')) output = { ...output, ...local.style }
     return output
   }
-  const entityProps = { ...local }
+  const entityProps = { ...local, img: attributes.src }
   delete entityProps.style
+  delete entityProps.href
   const entity = useEntity(entityProps)
   return <img style={style()} {...attributes}></img>
 }

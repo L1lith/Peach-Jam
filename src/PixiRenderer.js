@@ -10,36 +10,42 @@ class PixiRenderer extends RenderEngine {
   }
   addEntity(entity) {
     super.addEntity(entity)
+    console.log({ props: entity.props })
+    if (typeof entity.props.img == 'string') {
+      PIXI.Loader.shared.add(entity.props.img, entity.props.img).load((loader, resources) => {
+        const pixiBody = (entity.pixiBody = new PIXI.Sprite(resources[entity.props.img]))
+        pixiBody.x = entity.position.x
+        pixiBody.y = entity.position.y
+        pixiBody.width = entity.position.width
+        pixiBody.height = entity.position.height
+      })
+    } else {
+      console.warn('Entity missing image')
+    }
   }
   getAutoSize() {
     return this.pixiHolder.getBoundingClientRect()
   }
   render() {
-    //document.body.appendChild(app.view)
     onMount(() => {
-      //   const bounding = this.pixiHolder.getBoundingClientRect()
-      //   if (!this.pixiProps.hasOwnProperty('width')) {
-      //     this.pixiProps.width = bounding.width
-      //   }
-      //   if (!this.pixiProps.hasOwnProperty('height')) {
-      //     this.pixiProps.height = bounding.height
-      //   }
-      //if (!this.pixiProps.hasOwnProperty('resizeTo')) this.pixiProps.resizeTo = this.pixiHolder
       window.pixi = this.pixiApp = new PIXI.Application({
         ...this.pixiProps,
         width: window.innerWidth,
         height: window.innerHeight
       })
+      this.width = window.innerWidth
+      this.height = window.innerHeight
       this.pixiHolder.appendChild(this.pixiApp.view)
       const resize = () => {
         // Resize the renderer
+        this.width = window.innerWidth
+        this.height = window.innerHeight
         this.pixiApp.renderer.resize(window.innerWidth, window.innerHeight)
       }
       window.addEventListener('resize', resize)
-      //this.pixiApp.resizeTo = this.pixiHolder
     })
     document.body.style.overflow = 'hidden'
-    return <div style="height: 100vh; width: 100vw;" ref={this.pixiHolder}></div>
+    return <div ref={this.pixiHolder}></div>
   }
 }
 
