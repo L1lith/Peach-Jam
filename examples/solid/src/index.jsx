@@ -2,16 +2,12 @@
 import {createEffect, createSignal} from 'solid-js'
 import { render } from 'solid-js/web';
 import {Level, Img} from '../../../dist/index'
+import GameEngine from './GameEngine';
 
 import './index.css';
 
 function App() {
-    const [x, setX] = createSignal(0)
-    setInterval(()=> {
-        setX((x() + 1) % 50)
-        //console.log('x', x())
-    }, 100)
-    return <Level><Img x={x()}/></Level>
+    return <Level engine={GameEngine}><Img x={0}/></Level>
 }
 
 render(App, document.getElementById('root'));

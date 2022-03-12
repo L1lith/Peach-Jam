@@ -12,8 +12,8 @@ class RenderEngine {
   removeEntity(entity) {
     this.entities.delete(entity)
   }
-  render() {
-    return null
+  render(children) {
+    return children // Just mirror the children (do nothing)
   }
 }
 

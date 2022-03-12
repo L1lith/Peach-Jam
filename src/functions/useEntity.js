@@ -3,8 +3,9 @@ import { onMount, onCleanup, useContext } from 'solid-js'
 
 function useEntity(props) {
   const engine = useContext(EngineContext)
-  const entity = engine.createEntity(props)
+  let entity
   onMount(() => {
+    entity = engine.createEntity(props)
     engine.addEntity(entity)
   })
   onCleanup(() => {
