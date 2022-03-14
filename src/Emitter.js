@@ -1,6 +1,15 @@
 class Emitter {
-  constructor() {
-    this.listeners = {}
+  constructor(listeners = {}) {
+    this.listeners = listeners
+  }
+  emit(event, ...args) {
+    if (event === '*') throw new Error('Cannot emit a wildcard event')
+    if (this.listeners.hasOwnProperty(event)) {
+      this.listeners[event].forEach(listener => listener(...args))
+    }
+    if (this.listeners.hasOwnProperty('*')) {
+      this.listeners['*'].forEach(listener => listener(event, ...args))
+    }
   }
   on(event, listener) {
     if (typeof listener != 'function') throw new Error('Listener must be a function')
@@ -14,9 +23,13 @@ class Emitter {
     if (index >= 0) {
       listener.splice(index, 1)
     }
+    if (listeners.length < 1) {
+      delete this.listeners[event]
+    }
   }
   getListeners(event) {
-    if (typeof event != 'string') throw new Error('Event must be a String')
+    if (typeof event != 'string' || event.length < 1)
+      throw new Error('Event must be a non-empty String')
     if (this.listeners.hasOwnProperty(event)) {
       return this.listeners[event]
     } else {
@@ -24,3 +37,5 @@ class Emitter {
     }
   }
 }
+
+export default Emitter

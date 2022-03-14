@@ -1,8 +1,10 @@
-import { splitProps } from 'solid-js'
+import { splitProps, mergeProps } from 'solid-js'
 import useEntity from './functions/useEntity'
+import { positionProps } from './Entity'
 
 function Img(props) {
   const [local, attributes] = splitProps(props, ['style', 'x', 'y', 'width', 'height'])
+  const [position, entityPassProps] = splitProps(local, positionProps)
   const style = () => {
     let output = {
       position: 'absolute',
@@ -14,10 +16,8 @@ function Img(props) {
     if (local.hasOwnProperty('style')) output = { ...output, ...local.style }
     return output
   }
-  const entityProps = { ...local, img: attributes.src }
-  delete entityProps.style
-  delete entityProps.href
-  const entity = useEntity(entityProps)
+  const entityProps = mergeProps(entityPassProps, { img: attributes.src })
+  const entity = useEntity(position, entityProps)
   return <img style={style()} {...attributes}></img>
 }
 

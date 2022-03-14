@@ -21,10 +21,11 @@ class GameEngine {
     autoBind(this)
   }
   static Entity = Entity
-  createEntity(props) {
-    return new this.constructor.Entity(props, this)
+  createEntity(position, props) {
+    return new this.constructor.Entity(position, props, this)
   }
   addEntity(entity) {
+    //console.log(this.renderer, entity.isRendered, entity)
     if (entity.hasPhysics && this.physics) this.physics.addEntity(entity)
     if (entity.isRendered && this.renderer) this.renderer.addEntity(entity)
   }

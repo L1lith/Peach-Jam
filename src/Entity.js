@@ -1,5 +1,7 @@
 import coordinateFormat from './formats/coordinate'
 //import { nanoid } from 'nanoid'
+import strictDiff from './functions/strictDiff'
+import Emitter from './Emitter'
 
 const defaultPosition = {
   x: 0,
@@ -11,29 +13,23 @@ const defaultPosition = {
   rotation: 0
 }
 
-const positionProps = ['x', 'y', 'width', 'height']
+export const positionProps = ['x', 'y', 'width', 'height', 'xAnchor', 'yAnchor', 'rotation']
 
 class Entity {
-  constructor(props = {}) {
+  constructor(position = {}, props = {}) {
     //this.id = nanoid()
+    //console.log(position, props)
+    this.events = new Emitter()
     this.props = { ...props }
-    this.position = { ...defaultPosition }
-    for (let i = 0, l = positionProps.length; i < l; i++) {
-      const prop = positionProps[i]
-      if (props.hasOwnProperty(prop)) {
-        this.position[prop] = this.props[prop]
-        delete this.props[prop]
-      }
-    }
-    console.log('p', this.position)
+    this.position = { ...defaultPosition, ...position }
     this.hasPhysics = props.physics == 'object' && props.physics !== null
-    this.isRendered = !props.hasOwnProperty('isRendered') || !!props.isRendered
-  }
-  destroy() {
-    this.physics.removeEntity(this)
+    this.isRendered = !('isRendered' in props) || !!props.isRendered
   }
   setPosition(position) {
+    const oldPosition = this.position
     this.position = { ...this.position, ...position }
+    const diff = strictDiff(oldPosition, this.position)
+    if (Object.keys(diff).length > 0) this.events.emit('position', diff, this.position)
   }
 }
 

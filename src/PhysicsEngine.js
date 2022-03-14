@@ -6,13 +6,18 @@ class PhysicsEngine {
     autoBind(this)
   }
   clearEntities() {
-    this.entities = new WeakSet()
+    this.entities = []
   }
   addEntity(entity) {
-    this.entities.add(entity)
+    if (!this.entities.includes(entity)) {
+      this.entities.push(entity)
+    }
   }
   removeEntity(entity) {
-    this.entities.delete(entity)
+    const index = this.entities.indexOf(entity)
+    if (index >= 0) {
+      this.entities.splice(index, 1)
+    }
   }
   doPhysicsTick() {
     // Here: Calculate and call onCollision handlers

@@ -2,6 +2,7 @@ import GameEngine from './GameEngine'
 import EngineContext from './boiler/EngineContext'
 import { splitProps } from 'solid-js'
 import useHasMounted from './functions/useHasMounted'
+import { isServer } from 'solid-js/web'
 
 function Level(props) {
   //sanitize(props, propsFormat)
@@ -16,11 +17,12 @@ function Level(props) {
     throw new Error('Please supply a valid GameEngine class')
   const children = () => {
     const providedChildren = local.children || null
-    return !hasMounted || engine.renderer === null
-      ? providedChildren
-      : engine.renderer.render(providedChildren)
+    if (isServer) {
+      return providedChildren
+    } else {
+      return engine.renderer ? engine.renderer.doRender(providedChildren) : providedChildren
+    }
   }
-  window.engine = engine
   return (
     <EngineContext.Provider value={engine}>
       <div {...attributes} className="level">
