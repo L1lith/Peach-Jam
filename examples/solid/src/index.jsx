@@ -5,13 +5,18 @@ import {Level, Img} from '../../../dist/index'
 import GameEngine from './GameEngine';
 import './index.css';
 import tomatoImage from './assets/tomato.png'
+import useAnimationFrame from '../../../dist/functions/useAnimationFrame'
+
+const xSpeed = 0.05
 
 function App() {
     const [x, setX] = createSignal(0)
+    useAnimationFrame(({time})=>{
+        setX((time * xSpeed) % 50)
+    })
     setInterval(()=>{
-        setX((x() + 1) % 50)
         //console.log(x())
-    }, 50)
+    }, 20)
     return <Level engine={GameEngine}><Img src={tomatoImage} x={x()}/></Level>
 }
 
