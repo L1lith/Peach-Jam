@@ -1,5 +1,5 @@
-import GameEngine from '../../../../dist/GameEngine'
-import PixiRenderer from '../../../../dist/PixiRenderer'
+import GameEngine from '../../../../dist/classes/GameEngine'
+import PixiRenderer from '../../../../dist/classes/PixiRenderer'
 
 class OurGameEngine extends GameEngine {
   static Renderer = new PixiRenderer()

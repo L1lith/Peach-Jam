@@ -1,6 +1,6 @@
-import coordinateFormat from './formats/coordinate'
+import coordinateFormat from '../formats/coordinate'
 //import { nanoid } from 'nanoid'
-import strictDiff from './functions/strictDiff'
+import strictDiff from '../functions/strictDiff'
 import Emitter from './Emitter'
 
 const defaultPosition = {
@@ -8,8 +8,8 @@ const defaultPosition = {
   y: 0,
   width: 50,
   height: 50,
-  xAnchor: 0.5,
-  yAnchor: 0.5,
+  xAnchor: 0,
+  yAnchor: 0,
   rotation: 0
 }
 

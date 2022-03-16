@@ -22,12 +22,8 @@ class PixiRenderer extends RenderEngine {
         pixiBody.y = this.getRealY(entity.position.y)
         pixiBody.width = this.getRealX(entity.position.width)
         pixiBody.height = this.getRealY(entity.position.height)
-        // console.log(
-        //   this.getRealX(entity.position.x),
-        //   this.getRealY(entity.position.y),
-        //   this.getRealX(entity.position.width),
-        //   this.getRealY(entity.position.height)
-        // )
+        pixiBody.angle = entity.position.rotation
+        console.log(entity.position)
       }
       this.levelContainer.addChild(pixiBody)
       //console.log(this.levelContainer.children)

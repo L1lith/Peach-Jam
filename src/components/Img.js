@@ -1,9 +1,9 @@
 import { splitProps, mergeProps } from 'solid-js'
-import useEntity from './functions/useEntity'
-import { positionProps } from './Entity'
+import useEntity from '../hooks/useEntity'
+import { positionProps } from '../classes/Entity'
 
 function Img(props) {
-  const [local, attributes] = splitProps(props, ['style', 'x', 'y', 'width', 'height'])
+  const [local, attributes] = splitProps(props, ['style', 'x', 'y', 'width', 'height', 'rotation'])
   const [position, entityPassProps] = splitProps(local, positionProps)
   const style = () => {
     let output = {

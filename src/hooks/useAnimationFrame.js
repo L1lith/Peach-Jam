@@ -3,14 +3,17 @@ import { isServer } from 'solid-js/web'
 // Reusable component that also takes dependencies
 let last = null
 let frame = null
+let globalStart = null
 const listeners = new Map()
 const animate = () => {
   const now = performance.now()
   if (last === null) last = now
+  if (globalStart === null) globalStart = now
   const delta = now - last
   listeners.forEach((startTime, callback) => {
     const time = now - startTime
-    callback({ time, delta })
+    const global = now - globalStart
+    callback({ time, delta, global })
   })
   last = now
   frame = requestAnimationFrame(animate)

@@ -1,7 +1,7 @@
-import GameEngine from './GameEngine'
-import EngineContext from './boiler/EngineContext'
+import GameEngine from '../classes/GameEngine'
+import EngineContext from '../boiler/EngineContext'
 import { splitProps } from 'solid-js'
-import useHasMounted from './functions/useHasMounted'
+import useHasMounted from '../hooks/useHasMounted'
 import { isServer } from 'solid-js/web'
 
 function Level(props) {
