@@ -3,7 +3,7 @@ import { onMount } from 'solid-js'
 
 import RenderEngine from './RenderEngine'
 
-utils.skipHello()
+utils.skipHello() // Disable the Pixi banner in console
 
 class PixiRenderer extends RenderEngine {
   constructor(pixiProps = {}) {
@@ -23,7 +23,7 @@ class PixiRenderer extends RenderEngine {
         pixiBody.width = this.getRealX(entity.position.width)
         pixiBody.height = this.getRealY(entity.position.height)
         pixiBody.angle = entity.position.rotation
-        console.log(entity.position)
+        //console.log(entity.position)
       }
       this.levelContainer.addChild(pixiBody)
       //console.log(this.levelContainer.children)
@@ -67,6 +67,7 @@ class PixiRenderer extends RenderEngine {
     document.body.style.overflow = 'hidden'
     return <div ref={this.pixiHolder}></div>
   }
+  loadImage(url) {}
 }
 
 export default PixiRenderer

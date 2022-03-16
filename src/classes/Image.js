@@ -6,16 +6,11 @@ class Image {
       this.url = url
     }
   }
-  static fromRaw(urlData) {
-    const image = new Image()
-    image.type = 'raw'
-    image.data = urlData
-    return image
-  }
-  static fromSpriteSheet(url, x = 0, y = 0, width, height) {
+  static fromSpriteSheet(spriteSheetImage, x = 0, y = 0, width, height) {
+    if (!(spriteSheetImage instanceof Image)) throw new Error('Expected a sprite sheet image')
     const image = new Image()
     image.type = 'sprite'
-    image.spriteSheet = url
+    image.spriteSheet = spriteSheetImage
     image.x = x
     image.y = y
     image.width = width
