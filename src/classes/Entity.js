@@ -6,14 +6,16 @@ import Emitter from './Emitter'
 const defaultPosition = {
   x: 0,
   y: 0,
+  z: 0,
   width: 50,
   height: 50,
+  depth: 0,
   xAnchor: 0,
   yAnchor: 0,
   rotation: 0
 }
 
-export const positionProps = ['x', 'y', 'width', 'height', 'xAnchor', 'yAnchor', 'rotation']
+export const positionProps = Object.keys(defaultPosition) //['x', 'y', 'width', 'height', 'xAnchor', 'yAnchor', 'rotation']
 
 class Entity {
   constructor(position = {}, props = {}) {

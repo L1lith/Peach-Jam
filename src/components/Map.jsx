@@ -10,7 +10,7 @@ function Map({ data, tileSets }) {
   if (isServer) {
     return null // TODO: Implement ISO map rendering
   } else {
-    console.log(data)
+    data.layers.forEach(<Layer></Layer>)
   }
 }
 

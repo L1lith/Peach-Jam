@@ -3,11 +3,11 @@ import {createEffect, createSignal} from 'solid-js'
 import { render } from 'solid-js/web';
 //import {} from '../../../dist/classes'
 import {Img, Map, Level} from '../../../dist/components'
-import testMap from './assets/maps/test.json'
+import testMap from './assets/maps/test'
 import GameEngine from './GameEngine';
 import './index.css';
 import tomatoImage from './assets/tomato.png'
-import {useAnimationFrame} from '../../../dist/hooks'
+import {useAnimationFrame, useLayer} from '../../../dist/hooks'
 
 const xSpeed = 0.05
 const squishSpeed = 0.05
@@ -31,7 +31,7 @@ function App() {
     setInterval(()=>{
         //console.log(x())
     }, 20)
-    return <Level engine={GameEngine}><Map data={testMap}/><Img src={tomatoImage} height={height()} y={35} x={x()} rotation ={rotation()}/></Level>
+    return <Level engine={GameEngine}>{testMap}<Img src={tomatoImage} height={height()} y={35} x={x()} rotation ={rotation()}/></Level>
 }
 
 render(App, document.getElementById('root'));

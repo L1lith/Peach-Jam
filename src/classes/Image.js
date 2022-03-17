@@ -1,7 +1,7 @@
 class Image {
   constructor(url = null) {
     if (url !== null) {
-      if (typeof url == 'string') throw new Error('Image url must be a string or null')
+      if (typeof url !== 'string') throw new Error('Image url must be a string or null')
       this.type = 'url'
       this.url = url
     }

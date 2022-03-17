@@ -1,26 +1,42 @@
 import autoBind from 'auto-bind'
+import Layer from './Layer'
 
 class RenderEngine {
   constructor() {
-    this.clearEntities()
     autoBind(this)
+    this.clearLayers()
   }
-  clearEntities() {
-    this.entities = []
-  }
-  addEntity(entity) {
-    if (!this.entities.includes(entity)) {
-      this.entities.push(entity)
+  clearLayers(withRoot = true) {
+    this.layers = []
+    if (withRoot) {
+      this.rootLayer = this.createLayer()
+      this.addEntity = this.rootLayer.addEntity
+      this.removeEntity = this.rootLayer.removeEntity
+      this.createEntity = this.rootLayer.createEntity
+      this.addLayer(this.rootLayer)
+    } else {
+      this.rootLayer = null
+      this.addEntity = null
+      this.removeEntity = null
+      this.createEntity = null
     }
   }
-  removeEntity(entity) {
-    const index = this.entities.indexOf(entity)
+  addLayer(layer) {
+    if (!this.layers.includes(layer)) {
+      this.layers.push(layer)
+    }
+  }
+  removeLayer(layer) {
+    const index = this.layers.indexOf(layer)
     if (index >= 0) {
-      this.entities.splice(index, 1)
+      this.layers.splice(index, 1)
     }
   }
   doRender(children) {
     return children // Just mirror the children (do nothing)
+  }
+  createLayer() {
+    return new Layer(this)
   }
 }
 

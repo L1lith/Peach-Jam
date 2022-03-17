@@ -3,7 +3,7 @@ import useEntity from '../hooks/useEntity'
 import { positionProps } from '../classes/Entity'
 
 function Img(props) {
-  const [local, attributes] = splitProps(props, ['style', 'x', 'y', 'width', 'height', 'rotation'])
+  const [local, attributes] = splitProps(props, ['style', ...positionProps])
   const [position, entityPassProps] = splitProps(local, positionProps)
   const style = () => {
     let output = {

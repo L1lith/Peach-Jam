@@ -1,5 +1,5 @@
-import { TileSet } from '../../../../../src/classes'
+import TiledTileSet from '../../../../../src/classes/TiledTileSet'
 import data from './dungeon.json'
 import images from './dungeon.png'
 
-export default new TileSet(data, images)
+export default new TiledTileSet(images, data)

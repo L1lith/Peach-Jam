@@ -1,37 +1,25 @@
 import { Loader, Sprite, Application, Texture, Container, utils } from 'pixi.js'
 import { onMount } from 'solid-js'
+import autoBind from 'auto-bind'
 
 import RenderEngine from './RenderEngine'
 
 utils.skipHello() // Disable the Pixi banner in console
 
+
 class PixiRenderer extends RenderEngine {
   constructor(pixiProps = {}) {
     super()
+    autoBind()
     this.pixiProps = pixiProps
     this.levelContainer = new Container()
   }
-  addEntity(entity) {
-    super.addEntity(entity)
-    if (typeof entity.props.img == 'string') {
-      const texture = Texture.from(entity.props.img)
-      const pixiBody = (entity.pixiBody = new Sprite(texture))
-      entity.setPixiPosition = () => {
-        pixiBody.anchor.set(entity.position.anchorX, entity.position.anchorY)
-        pixiBody.x = this.getRealX(entity.position.x)
-        pixiBody.y = this.getRealY(entity.position.y)
-        pixiBody.width = this.getRealX(entity.position.width)
-        pixiBody.height = this.getRealY(entity.position.height)
-        pixiBody.angle = entity.position.rotation
-        //console.log(entity.position)
-      }
-      this.levelContainer.addChild(pixiBody)
-      //console.log(this.levelContainer.children)
-      entity.events.on('position', entity.setPixiPosition)
-    } else {
-      console.warn('Entity missing image')
-    }
+
+  createLayer(...props) {
+    const layer = super.createLayer(...props)
+    layer.addEntity = addEntity.bind(layer)
   }
+  
   getRealX(x) {
     return (x / 100) * this.width
   }
