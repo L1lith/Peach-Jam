@@ -2,11 +2,13 @@ import autoBind from 'auto-bind'
 import PhysicsEngine from './PhysicsEngine'
 import RenderEngine from './RenderEngine'
 import Entity from './Entity'
+import Layer from './Layer'
 
 class GameEngine {
   constructor() {
     //if (typeof renderFunction != 'function') throw new Error('Please supply a render function')
     //this.renderer = renderFunction
+    autoBind(this)
     const physics = (this.physics = this.constructor.hasOwnProperty('Physics')
       ? this.constructor.Physics
       : null)
@@ -18,20 +20,12 @@ class GameEngine {
       : null)
     if (renderer !== null && !(renderer instanceof RenderEngine))
       throw new Error('Expected a render engine instance')
-    autoBind(this)
+    this.clear()
   }
-  static Entity = Entity
-  createEntity(position, props) {
-    return new this.constructor.Entity(position, props, this)
-  }
-  addEntity(entity) {
-    //console.log(this.renderer, entity.isRendered, entity)
-    if (entity.hasPhysics && this.physics) this.physics.addEntity(entity)
-    if (entity.isRendered && this.renderer) this.renderer.addEntity(entity)
-  }
-  removeEntity(entity) {
-    if (entity.hasPhysics && this.physics) this.physics.removeEntity(entity)
-    if (entity.isRendered && this.renderer) this.renderer.removeEntity(entity)
+  clear() {
+    this.rootLayer = new Layer()
+    this.addEntity = this.rootLayer.addEntity
+    this.removeEntity = this.rootLayer.removeEntity
   }
 }
 

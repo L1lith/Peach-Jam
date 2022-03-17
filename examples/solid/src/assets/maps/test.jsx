@@ -1,6 +1,8 @@
-import Map from '../../../../../src/components/Map'
+import Map from '../../../../../src/classes/Map'
 import data from './test.json'
 import dungeon from '../tilesets/dungeon'
 import interiors from '../tilesets/interiors'
 
-export default <Map data={data} tileSets={[dungeon, interiors]} />
+const testMap = new Map()
+
+export default testMap

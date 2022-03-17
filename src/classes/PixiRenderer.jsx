@@ -1,6 +1,7 @@
 import { Loader, Sprite, Application, Texture, Container, utils } from 'pixi.js'
 import { onMount } from 'solid-js'
 import autoBind from 'auto-bind'
+import PixiLayer from './PixiLayer'
 
 import RenderEngine from './RenderEngine'
 
@@ -10,15 +11,15 @@ utils.skipHello() // Disable the Pixi banner in console
 class PixiRenderer extends RenderEngine {
   constructor(pixiProps = {}) {
     super()
-    autoBind()
+    autoBind(this)
     this.pixiProps = pixiProps
-    this.levelContainer = new Container()
+    //this.levelContainer = new Container()
+  }
+  clear() {
+    super.clear()
+    this.rootLayer = new PixiLayer()
   }
 
-  createLayer(...props) {
-    const layer = super.createLayer(...props)
-    layer.addEntity = addEntity.bind(layer)
-  }
   
   getRealX(x) {
     return (x / 100) * this.width
@@ -36,10 +37,11 @@ class PixiRenderer extends RenderEngine {
         width: window.innerWidth,
         height: window.innerHeight
       })
-      this.pixiApp.stage.addChild(this.levelContainer)
+      const levelContainer = this.rootLayer.container
+      this.pixiApp.stage.addChild(levelContainer)
       this.width = window.innerWidth
       this.height = window.innerHeight
-      this.pixiHolder.appendChild(this.pixiApp.view)
+      //this.pixiHolder.appendChild(this.rootLayer.container)
       const resize = () => {
         // Resize the renderer
         this.width = window.innerWidth

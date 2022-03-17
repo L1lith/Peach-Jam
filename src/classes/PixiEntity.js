@@ -1,18 +1,20 @@
 import autoBind from 'auto-bind'
+import { Sprite } from 'pixi.js'
 import Entity from './Entity'
 
 class PixiEntity extends Entity {
   constructor() {
     super(this)
     autoBind(this)
-    this.pixiBody = null
+    this.pixiBody = new Sprite()
     this.addEntity = this.addEntity.bind(this)
     this.setPixiPosition = this.setPixiPosition.bind(this)
   }
   addEntity(entity) {
     if (typeof entity.props.img == 'string') {
       const texture = Texture.from(entity.props.img)
-      const pixiBody = (this.pixiBody = new Sprite(texture))
+      const pixiBody = this.pixiBody
+      this.pixiBody.setTexture(texture)
       entity.this.levelContainer.addChild(pixiBody)
       //console.log(this.levelContainer.children)
       entity.events.on('position', this.setPixiPosition)

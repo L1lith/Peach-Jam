@@ -24,7 +24,8 @@ class Entity {
     this.events = new Emitter()
     this.props = { ...props }
     this.position = { ...defaultPosition, ...position }
-    this.hasPhysics = props.physics == 'object' && props.physics !== null
+    this.hasPhysics =
+      props.physics == 'object' && props.physics !== null && props.physics.mode !== 'none'
     this.isRendered = !('isRendered' in props) || !!props.isRendered
   }
   setPosition(position) {
