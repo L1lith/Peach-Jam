@@ -1,5 +1,5 @@
-import Image from './Image'
-import TileSet from './TileSet'
+import Image from '../classes/Image'
+import TileSet from '../classes/TileSet'
 
 class TiledTileSet extends TileSet {
   constructor(

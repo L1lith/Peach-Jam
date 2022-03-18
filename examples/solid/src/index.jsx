@@ -2,7 +2,7 @@
 import {createEffect, createSignal} from 'solid-js'
 import { render } from 'solid-js/web';
 //import {} from '../../../dist/classes'
-import {Level, Layer, Entity} from '../../../dist/pixi'
+import {Level, Entity} from '../../../dist/classes'
 import testMap from './assets/maps/test'
 import gameEngine from './gameEngine';
 import './index.css';
@@ -34,6 +34,7 @@ function App() {
     const tomato = new Entity({}, {img: tomatoImage})
     const testLevel = new Level(gameEngine)
     testLevel.root.addEntity(tomato)
+    //testLevel.root.addLayer()
     createEffect(() => {
         tomato.setPosition({x: x(), height: height(), rotation: rotation()})
     })

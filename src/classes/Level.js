@@ -5,17 +5,21 @@ import { splitProps } from 'solid-js'
 import { isServer } from 'solid-js/web'
 import autoBind from 'auto-bind'
 import Layer from './Layer'
+import Emitter from './Emitter'
 
 class Level {
   constructor(engine) {
     if (!(engine instanceof GameEngine)) throw new Error('Invalid Game Engine!')
     autoBind(this)
     this.engine = engine
+    this.events = new Emitter()
     this.clear()
   }
   clear() {
-    console.log(this.engine)
     this.engine.root = this.root = new Layer(null, this.engine)
+    this.addLayer = this.root.addLayer
+    this.removeLayer = this.root.removeLayer
+    this.events.emit('setRoot', this.root)
   }
   doRender(props = {}) {
     //const hasMounted = useHasMounted()
