@@ -1,16 +1,16 @@
-import Layer from './Layer'
+import Layer from '../classes/Layer'
 import { Container } from 'pixi.js'
 import autoBind from 'auto-bind'
 
 class PixiLayer extends Layer {
-  constructor() {
-    super()
+  constructor(parentLayer, engine) {
+    super(parentLayer, engine)
     autoBind(this)
   }
   clear() {
     super.clear()
     this.container = new Container()
-    console.log(this)
+    //console.log(this)
     if (this.parentLayer !== null) this.parentLayer.container.appendChild(this.container)
   }
   addLayer(layer) {
@@ -23,7 +23,8 @@ class PixiLayer extends Layer {
   }
   addEntity(entity) {
     super.addEntity(entity)
-    this.container.addChild(entity)
+    this.container.addChild(entity.pixiBody)
+    //entity.setPixiPosition()
   }
   removeEntity(entity) {
     super.removeEntity(entity)

@@ -27,6 +27,8 @@ class Entity {
     this.hasPhysics =
       props.physics == 'object' && props.physics !== null && props.physics.mode !== 'none'
     this.isRendered = !('isRendered' in props) || !!props.isRendered
+    this.layer = null
+    this.renderer = null
   }
   setPosition(position) {
     const oldPosition = this.position

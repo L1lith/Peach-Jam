@@ -2,9 +2,9 @@
 import {createEffect, createSignal} from 'solid-js'
 import { render } from 'solid-js/web';
 //import {} from '../../../dist/classes'
-import {Level} from '../../../dist/components'
+import {Level, Layer, Entity} from '../../../dist/pixi'
 import testMap from './assets/maps/test'
-import GameEngine from './GameEngine';
+import gameEngine from './gameEngine';
 import './index.css';
 import tomatoImage from './assets/tomato.png'
 import {useAnimationFrame, useLayer} from '../../../dist/hooks'
@@ -31,7 +31,13 @@ function App() {
     setInterval(()=>{
         //console.log(x())
     }, 20)
-    return <Level engine={GameEngine}></Level>
+    const tomato = new Entity({}, {img: tomatoImage})
+    const testLevel = new Level(gameEngine)
+    testLevel.root.addEntity(tomato)
+    createEffect(() => {
+        tomato.setPosition({x: x(), height: height(), rotation: rotation()})
+    })
+    return testLevel.doRender()
 }
 
 render(App, document.getElementById('root'));
