@@ -1,4 +1,4 @@
-import { Loader, Sprite, Application, Texture, Container, utils } from 'pixi.js'
+import { Loader, Sprite, Application, Texture, Container, utils, Rectangle } from 'pixi.js'
 import { onMount } from 'solid-js'
 import autoBind from 'auto-bind'
 import Layer from '../classes/Layer'
@@ -12,25 +12,27 @@ function createPixiBody(entity) {
   if ('pixiBody' in entity) return
   const {props} = entity
   let pixiBody
-  if (typeof props.img == 'string') {
+  const {img} = props
+  if (typeof img == 'string') {
     const texture = Texture.from(props.img)
     pixiBody = entity.pixiBody = new Sprite(texture)
-  } else if (props.img?.type == 'sprite') {
-    
+  } else if (img?.type == 'sprite') {
+    const {spriteSheet} = img
+    console.log(img)
+    if (!spriteSheet.texture) spriteSheet.texture = Texture.from(spriteSheet.url)
+    const texture = new Texture(spriteSheet.texture, new Rectangle(img.x, img.y, img.width, img.height))
+    pixiBody = entity.pixiBody = new Sprite(texture)
   } else {
     pixiBody = entity.pixiBody = new Sprite()
     console.warn('Entity missing image')
   }
   return pixiBody
 }
-var logged = false
 function setPixiPosition(renderer, entity, position) {
   if (!renderer) return console.warn("Couldn't find renderer :(")
   if (!position) position = entity.position
   createPixiBody(entity)
   const pixiBody = entity.pixiBody
-  if (logged = false) console.log(pixiBody)
-  logged = true
   if ('anchorX' in position || 'anchorY' in position) pixiBody.anchor.set(position.anchorX, position.anchorY)
   if ('x' in position) pixiBody.x = renderer.getRealX(position.x)
   if ('y' in position) pixiBody.y = renderer.getRealY(position.y)
