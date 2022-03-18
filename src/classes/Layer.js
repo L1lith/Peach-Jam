@@ -15,7 +15,9 @@ class Layer {
     this.entities = []
   }
   addLayer(layer) {
-    if (!(layer instanceof Layer)) throw new Error('Please supply a valid layer instance')
+    if (!(layer instanceof Layer) && layer.constructor.name !== 'Layer') {
+      throw new Error('Please supply a valid layer instance')
+    }
     layer.engine = this.engine
     if (!this.layers.includes(layer)) {
       this.layers.push(layer)

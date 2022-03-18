@@ -15,6 +15,8 @@ function createPixiBody(entity) {
   if (typeof props.img == 'string') {
     const texture = Texture.from(props.img)
     pixiBody = entity.pixiBody = new Sprite(texture)
+  } else if (props.img?.type == 'sprite') {
+    
   } else {
     pixiBody = entity.pixiBody = new Sprite()
     console.warn('Entity missing image')
@@ -48,10 +50,10 @@ class PixiRenderer extends RenderEngine {
     this.pixiProps = pixiProps
   }
   attachPixi(layer, parent) {
-    if (!(layer instanceof Layer)) return
+    if (!(layer instanceof Layer) && layer.constructor.name !== 'Layer') throw new Error("That's not a layer wtf")
     if (!layer.container) layer.container = new Container()
     if (parent) {
-      console.log(parent)
+      //console.log(parent.constructor, parent.addChild)
       parent.addChild(layer.container)
     }
     layer.entities.forEach(entity => {
@@ -71,10 +73,10 @@ class PixiRenderer extends RenderEngine {
       layer.container.removeChild(childEntity.pixiBody)
     })
     layer.layers.forEach(childLayer => {
-      this.attachPixi(childLayer, layer)
+      this.attachPixi(childLayer, layer.container)
     })
     layer.events.on('addLayer', childLayer => {
-      this.attachPixi(childLayer, layer)
+      this.attachPixi(childLayer, layer.container)
     })
     layer.events.on('removeLayer', childLayer => {
       layer.container.removeChild(childLayer.container)

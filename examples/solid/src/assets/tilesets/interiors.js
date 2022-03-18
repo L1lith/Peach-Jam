@@ -1,5 +1,5 @@
-import TileSet from '../../../../../dist/tiled/TiledTileSet'
+import TiledSet from '../../../../../dist/tiled/TiledSet'
 import data from './interiors.json'
 import images from './interiors.png'
 
-export default new TileSet(images, data)
+export default new TiledSet(images, data)
