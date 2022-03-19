@@ -12,7 +12,10 @@ const defaultPosition = {
   depth: 0,
   xAnchor: 0,
   yAnchor: 0,
-  rotation: 0
+  rotation: 0,
+  verticallyFlipped: false,
+  diagonallyFlipped: false,
+  horizontallyFlipped: false
 }
 
 export const positionProps = Object.keys(defaultPosition) //['x', 'y', 'width', 'height', 'xAnchor', 'yAnchor', 'rotation']

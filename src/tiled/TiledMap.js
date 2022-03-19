@@ -2,6 +2,10 @@ import { isServer } from 'solid-js/web'
 import Layer from '../classes/Layer'
 import Entity from '../classes/Entity'
 
+const FLIPPED_HORIZONTALLY_FLAG = 0x80000000
+const FLIPPED_VERTICALLY_FLAG = 0x40000000
+const FLIPPED_DIAGONALLY_FLAG = 0x20000000
+
 function getTileImage(tileNumber, tileSets) {
   for (
     let currentTile = 0, currentSet = 0, length = tileSets.length;
@@ -35,7 +39,9 @@ class TiledMap {
       for (let i = 0, l = data.length; i < l; i++) {
         const x = i % width
         const y = Math.floor(i / width)
-        const tileNumber = data[i] - 1
+        const tileGID = data[i] - 1
+        const tileNumber =
+          tileGID & ~(FLIPPED_HORIZONTALLY_FLAG | FLIPPED_VERTICALLY_FLAG | FLIPPED_DIAGONALLY_FLAG)
         if (tileNumber < 0) {
           continue // No tile here
         }
@@ -45,8 +51,19 @@ class TiledMap {
           continue
         }
         //if (tileNumber !== 0) console.log(tileNumber, x, y)
+        const horizontallyFlipped = !!(tileGID & FLIPPED_HORIZONTALLY_FLAG)
+        const verticallyFlipped = !!(tileGID & FLIPPED_VERTICALLY_FLAG)
+        const diagonallyFlipped = !!(tileGID & FLIPPED_DIAGONALLY_FLAG)
         const entity = new Entity(
-          { x: x * tileWidth, y: y * tileHeight, width: tileWidth, height: tileHeight },
+          {
+            x: x * tileWidth,
+            y: y * tileHeight,
+            width: tileWidth,
+            height: tileHeight,
+            verticallyFlipped,
+            horizontallyFlipped,
+            diagonallyFlipped
+          },
           { img: tileImage }
         )
         layer.addEntity(entity)
