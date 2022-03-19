@@ -18,7 +18,7 @@ function createPixiBody(entity) {
     pixiBody = entity.pixiBody = new Sprite(texture)
   } else if (img?.type == 'sprite') {
     const {spriteSheet} = img
-    console.log(img)
+    //console.log(img)
     if (!spriteSheet.texture) spriteSheet.texture = Texture.from(spriteSheet.url)
     const texture = new Texture(spriteSheet.texture, new Rectangle(img.x, img.y, img.width, img.height))
     pixiBody = entity.pixiBody = new Sprite(texture)
@@ -52,8 +52,10 @@ class PixiRenderer extends RenderEngine {
     this.pixiProps = pixiProps
   }
   attachPixi(layer, parent) {
+    console.log(layer.props)
     if (!(layer instanceof Layer) && layer.constructor.name !== 'Layer') throw new Error("That's not a layer wtf")
     if (!layer.container) layer.container = new Container()
+    if (layer.props.hasOwnProperty('z')) layer.container.zIndex = layer.props.z
     if (parent) {
       //console.log(parent.constructor, parent.addChild)
       parent.addChild(layer.container)
@@ -78,7 +80,9 @@ class PixiRenderer extends RenderEngine {
       this.attachPixi(childLayer, layer.container)
     })
     layer.events.on('addLayer', childLayer => {
+      console.log(childLayer.props)
       this.attachPixi(childLayer, layer.container)
+      if (childLayer.props.hasOwnProperty('z')) childLayer.container.zIndex = childLayer.props.z
     })
     layer.events.on('removeLayer', childLayer => {
       layer.container.removeChild(childLayer.container)

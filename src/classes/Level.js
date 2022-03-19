@@ -16,7 +16,7 @@ class Level {
     this.clear()
   }
   clear() {
-    this.engine.root = this.root = new Layer(null, this.engine)
+    this.engine.root = this.root = new Layer({}, null, this.engine)
     this.addLayer = this.root.addLayer
     this.removeLayer = this.root.removeLayer
     this.events.emit('setRoot', this.root)

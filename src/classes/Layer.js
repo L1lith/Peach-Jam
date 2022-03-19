@@ -3,8 +3,9 @@ import Entity from './Entity'
 import Emitter from './Emitter'
 
 class Layer {
-  constructor(parentLayer = null, engine = null) {
+  constructor(props = {}, parentLayer = null, engine = null) {
     autoBind(this)
+    this.props = props
     this.parentLayer = parentLayer
     this.engine = engine
     this.events = new Emitter()
