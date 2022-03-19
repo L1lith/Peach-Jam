@@ -1,6 +1,6 @@
 import { splitProps, mergeProps } from 'solid-js'
-import Entity from '../classes/Entity'
-import { positionProps } from '../classes/Entity'
+import Entity from '../src/classes/Entity'
+import { positionProps } from '../src/classes/Entity'
 
 function Img(props) {
   const [local, attributes] = splitProps(props, ['style', ...positionProps])

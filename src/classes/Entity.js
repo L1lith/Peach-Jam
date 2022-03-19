@@ -21,6 +21,20 @@ const defaultPosition = {
 export const positionProps = Object.keys(defaultPosition) //['x', 'y', 'width', 'height', 'xAnchor', 'yAnchor', 'rotation']
 
 class Entity {
+  // static defaultPosition = {
+  //   x: 0,
+  //   y: 0,
+  //   z: 0,
+  //   width: 50,
+  //   height: 50,
+  //   depth: 0,
+  //   xAnchor: 0,
+  //   yAnchor: 0,
+  //   rotation: 0,
+  //   verticallyFlipped: false,
+  //   diagonallyFlipped: false,
+  //   horizontallyFlipped: false
+  // }
   constructor(position = {}, props = {}) {
     //this.id = nanoid()
     //console.log(position, props)

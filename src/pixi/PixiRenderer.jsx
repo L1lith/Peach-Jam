@@ -1,4 +1,4 @@
-import { Loader, Sprite, Application, Texture, Container, utils, Rectangle } from 'pixi.js'
+import { Loader, Sprite, Application, Texture, Container, utils, Rectangle, settings, SCALE_MODES } from 'pixi.js'
 import { onMount } from 'solid-js'
 import autoBind from 'auto-bind'
 import Layer from '../classes/Layer'
@@ -6,6 +6,7 @@ import Layer from '../classes/Layer'
 
 import RenderEngine from '../classes/RenderEngine'
 
+settings.SCALE_MODE = SCALE_MODES.NEAREST
 utils.skipHello() // Disable the Pixi banner in console
 
 function createPixiBody(entity) {
@@ -80,7 +81,7 @@ class PixiRenderer extends RenderEngine {
       this.attachPixi(childLayer, layer.container)
     })
     layer.events.on('addLayer', childLayer => {
-      console.log(childLayer.props)
+      //console.log(childLayer.props)
       this.attachPixi(childLayer, layer.container)
       if (childLayer.props.hasOwnProperty('z')) childLayer.container.zIndex = childLayer.props.z
     })

@@ -12,9 +12,9 @@ class TiledSet {
   nthImage(n) {
     if (n < 0) throw new Error('N must be greater than or equal to 0')
     if (n >= this.data.tilecount) throw new Error('Invalid Tile Number, exceeds max for tileset')
-    const { tilewidth, tileheight, imagewidth, columns } = this.data
-    let x = (n % columns) * tilewidth
-    let y = Math.floor(n / columns) * tileheight
+    const { tilewidth, tileheight, imagewidth, columns, spacing = 0 } = this.data
+    let x = (n % columns) * (tilewidth + spacing)
+    let y = Math.floor(n / columns) * (tileheight + spacing)
     return Image.fromSpriteSheet(this.image, x, y, tilewidth, tileheight)
   }
 }

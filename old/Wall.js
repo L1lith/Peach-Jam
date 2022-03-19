@@ -1,6 +1,6 @@
 import autoBind from 'auto-bind'
 import { sanitize } from 'sandhands'
-import positionFormat from './formats/position'
+import positionFormat from '../src/formats/position'
 
 const propsFormat = { ...positionFormat }
 

@@ -21,7 +21,7 @@ function getTileImage(tileNumber, tileSets) {
     }
     currentTile += setLength
   }
-  console.log('got null', tileNumber)
+  //console.log('got null', tileNumber)
   return null
 }
 

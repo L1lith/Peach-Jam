@@ -36,7 +36,7 @@ function App() {
     //testLevel.root.addEntity(tomato)
     //console.log('x', testMap.root, testMap.root instanceof Layer)
     testLevel.root.addLayer(theForest.root)
-    console.log(testLevel.root)
+    //console.log(testLevel.root)
     // createEffect(() => {
     //     tomato.setPosition({x: x(), height: height(), rotation: rotation()})
     // })

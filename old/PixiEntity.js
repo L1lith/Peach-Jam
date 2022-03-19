@@ -1,6 +1,6 @@
 import autoBind from 'auto-bind'
 import { Sprite, Texture } from 'pixi.js'
-import Entity from '../classes/Entity'
+import Entity from '../src/classes/Entity'
 
 class PixiEntity extends Entity {
   constructor(position = {}, props = {}) {

@@ -1,0 +1,14 @@
+{ "columns":23,
+ "image":"moonForest.png",
+ "imageheight":318,
+ "imagewidth":418,
+ "margin":0,
+ "name":"moonForest",
+ "spacing":2,
+ "tilecount":391,
+ "tiledversion":"1.8.2",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.8"
+}

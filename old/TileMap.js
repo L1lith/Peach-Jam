@@ -1,4 +1,4 @@
-import Layer from './Layer'
+import Layer from '../src/classes/Layer'
 
 class Map {
   constructor() {
