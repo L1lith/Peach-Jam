@@ -7,7 +7,7 @@ You only have to write your game once, then by using plugins you can swap out yo
 # a Work in Progress
 This framework is still in hot development. Notably physics has not been implemented yet. The following features either have been or are on the wish list to be implemented:
 
-## Implemented Features
+## Feature Roadmap
 - [x] Pixi.js Rendering Support
 - [ ] Physics Support
 - [x] Tiled Map Editor (woo!)
