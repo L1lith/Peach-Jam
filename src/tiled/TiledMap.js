@@ -54,18 +54,16 @@ class TiledMap {
         const horizontallyFlipped = !!(tileGID & FLIPPED_HORIZONTALLY_FLAG)
         const verticallyFlipped = !!(tileGID & FLIPPED_VERTICALLY_FLAG)
         const diagonallyFlipped = !!(tileGID & FLIPPED_DIAGONALLY_FLAG)
-        const entity = new Entity(
-          {
-            x: x * tileWidth,
-            y: y * tileHeight,
-            width: tileWidth,
-            height: tileHeight,
-            verticallyFlipped,
-            horizontallyFlipped,
-            diagonallyFlipped
-          },
-          { img: tileImage }
-        )
+        const position = {
+          x: x * tileWidth,
+          y: y * tileHeight,
+          width: tileWidth,
+          height: tileHeight,
+          horizontallyFlipped,
+          verticallyFlipped,
+          diagonallyFlipped
+        }
+        const entity = new Entity(position, { img: tileImage })
         layer.addEntity(entity)
       }
       //console.log(layer)

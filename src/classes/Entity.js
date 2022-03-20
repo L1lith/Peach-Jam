@@ -10,8 +10,10 @@ const defaultPosition = {
   width: 50,
   height: 50,
   depth: 0,
-  xAnchor: 0,
-  yAnchor: 0,
+  // xAnchor: 0, // Currently Disabled
+  // yAnchor: 0,
+  // yScale: 1,
+  // xScale: 1,
   rotation: 0,
   verticallyFlipped: false,
   diagonallyFlipped: false,

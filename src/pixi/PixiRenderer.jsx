@@ -43,7 +43,21 @@ function setPixiPosition(renderer, entity, position) {
     pixiBody.height = renderer.getRealY(position.height)
     //console.log(position.height, renderer.getRealY(position.height), pixiBody.height)
   }
+  if (position.horizontallyFlipped || position.diagonallyFlipped) {
+    pixiBody.anchor.x = 1
+    pixiBody.scale.x = -1
+  }
+  if (position.verticallyFlipped || position.diagonallyFlipped) {
+    pixiBody.anchor.y = 1
+    pixiBody.scale.y = -1
+  }
   if ('rotation' in position) pixiBody.angle = position.rotation
+  // if ('xScale' in position) {
+  //   pixiBody.scale.x = position.scaleX
+    
+  //   console.log('xScale', position.xScale, pixiBody.scale)
+  // }
+  // if ('yScale' in position) pixiBody.scale.y = position.scaleY
 }
 
 class PixiRenderer extends RenderEngine {
