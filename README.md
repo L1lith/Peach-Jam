@@ -13,6 +13,7 @@ This framework is still in hot development. Notably physics has not been impleme
 - [x] Tiled Map Editor (woo!)
 - [ ] Solid.js Isomorphic Rendering
 - [ ] Controller API integration
+- [ ] 3D support (currently this framework is oriented around 2D support)
 
 # If you like this project
 Please don't be afraid to make a pull request or star the project. It's difficult for me to develop this framework by myself, so any help is appreciated.
