@@ -1,6 +1,7 @@
 import autoBind from 'auto-bind'
 import Entity from './Entity'
 import Emitter from './Emitter'
+import isInstance from '../functions/isInstance'
 
 class Layer {
   constructor(props = {}, parentLayer = null, engine = null) {
@@ -16,9 +17,7 @@ class Layer {
     this.entities = []
   }
   addLayer(layer) {
-    if (!(layer instanceof Layer) && layer.constructor.name !== 'Layer') {
-      throw new Error('Please supply a valid layer instance')
-    }
+    if (!isInstance(layer, Layer)) throw new Error('Please supply a valid layer instance')
     layer.engine = this.engine
     if (!this.layers.includes(layer)) {
       this.layers.push(layer)
@@ -26,7 +25,7 @@ class Layer {
     this.events.emit('addLayer', layer)
   }
   removeLayer(layer) {
-    if (!(layer instanceof Layer)) throw new Error('Please supply a valid layer instance')
+    if (!isInstance(layer, Layer)) throw new Error('Please supply a valid layer instance')
     const index = this.layers.indexOf(layer)
     layer.engine = null
     if (index >= 0) {
@@ -35,7 +34,7 @@ class Layer {
     this.events.emit('removeLayer', layer)
   }
   addEntity(entity) {
-    if (!(entity instanceof Entity)) throw new Error('Please supply a valid Entity')
+    if (!isInstance(entity, Entity)) throw new Error('Please supply a valid Entity')
     entity.engine = this.engine
     if (!this.entities.includes(entity)) {
       this.entities.push(entity)
@@ -43,7 +42,7 @@ class Layer {
     this.events.emit('addEntity', entity)
   }
   removeEntity(entity) {
-    if (!(entity instanceof Entity)) throw new Error('Please supply a valid Entity')
+    if (!isInstance(entity, Entity)) throw new Error('Please supply a valid Entity')
     entity.engine = null
     const index = this.entities.indexOf(entity)
     if (index >= 0) {
