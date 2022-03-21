@@ -6,6 +6,7 @@ class Image {
       this.url = url
     }
   }
+  static type = 'Image'
   static fromSpriteSheet(spriteSheetImage, x = 0, y = 0, width, height) {
     if (!(spriteSheetImage instanceof Image)) throw new Error('Expected a sprite sheet image')
     const image = new Image()

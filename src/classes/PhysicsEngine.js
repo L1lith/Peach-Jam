@@ -5,6 +5,7 @@ class PhysicsEngine {
     this.clearEntities()
     autoBind(this)
   }
+  static type = 'PhysicsEngine'
   clearEntities() {
     this.entities = []
   }

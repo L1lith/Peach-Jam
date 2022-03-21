@@ -15,6 +15,7 @@ class Level {
     this.events = new Emitter()
     this.clear()
   }
+  static type = 'Level'
   clear() {
     this.engine.root = this.root = new Layer({}, null, this.engine)
     this.addLayer = this.root.addLayer

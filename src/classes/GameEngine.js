@@ -21,6 +21,7 @@ class GameEngine {
       throw new Error('Expected a render engine instance')
     this.root = null
   }
+  static type = 'GameEngine'
   // clear() {
   //   this.root = new Layer(null, this.renderer)
   //   this.addEntity = this.root.addEntity

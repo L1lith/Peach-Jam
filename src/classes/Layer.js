@@ -12,6 +12,7 @@ class Layer {
     this.events = new Emitter()
     this.clear()
   }
+  static type = 'Layer'
   clear() {
     this.layers = []
     this.entities = []

@@ -5,6 +5,7 @@ class RenderEngine {
   constructor() {
     autoBind(this)
   }
+  static type = 'RenderEngine'
   doRender(children) {
     return children // Just mirror the children (do nothing)
   }

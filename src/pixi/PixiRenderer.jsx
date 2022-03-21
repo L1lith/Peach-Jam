@@ -2,6 +2,7 @@ import { Loader, Sprite, Application, Texture, Container, utils, Rectangle, sett
 import { onMount } from 'solid-js'
 import autoBind from 'auto-bind'
 import Layer from '../classes/Layer'
+import isInstance from '../functions/isInstance'
 //import PixiLayer from './PixiLayer'
 
 import RenderEngine from '../classes/RenderEngine'
@@ -68,7 +69,7 @@ class PixiRenderer extends RenderEngine {
   }
   attachPixi(layer, parent) {
     console.log(layer.props)
-    if (!(layer instanceof Layer) && layer.constructor.name !== 'Layer') throw new Error("That's not a layer wtf")
+    if (!isInstance(layer, Layer)) throw new Error("That's not a layer wtf")
     if (!layer.container) layer.container = new Container()
     if (layer.props.hasOwnProperty('z')) layer.container.zIndex = layer.props.z
     if (parent) {
@@ -139,7 +140,7 @@ class PixiRenderer extends RenderEngine {
     return <div ref={this.pixiHolder}></div>
   }
   setRoot(layer) {
-    if (!(layer instanceof Layer)) throw new Error("Expected a valid layer")
+    if (!isInstance(layer, Layer)) throw new Error("Expected a valid layer")
     const pixiApp = this.pixiApp
     for(let i = 0, l = pixiApp.stage.children.length; i < l; i++) {
       const child = pixiApp.stage.children[i]
