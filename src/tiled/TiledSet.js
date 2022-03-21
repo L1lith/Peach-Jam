@@ -1,10 +1,12 @@
 import Image from '../classes/Image'
+import TileSet from '../classes/TileSet'
 
-class TiledSet {
+class TiledSet extends TileSet {
   constructor(
     image /*A single image file to extrapolate from */,
     data /*Tiled format JSON data */
   ) {
+    super(image, data)
     this.image = typeof image == 'string' ? new Image(image) : image
     this.data = data
     this.length = data.tilecount
