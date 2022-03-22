@@ -1,7 +1,7 @@
-import coordinateFormat from '../formats/coordinate'
-//import { nanoid } from 'nanoid'
 import strictDiff from '../functions/strictDiff'
 import Emitter from './Emitter'
+import { Rectangle } from '../boiler/PhysicsShapes'
+import { CollisionsOnly } from '../boiler/PhysicsModes'
 
 const defaultPosition = {
   x: 0,
@@ -19,6 +19,10 @@ const defaultPosition = {
   diagonallyFlipped: false,
   horizontallyFlipped: false
 }
+const defaultPhysics = {
+  shape: Rectangle,
+  mode: CollisionsOnly
+}
 
 export const positionProps = Object.keys(defaultPosition) //['x', 'y', 'width', 'height', 'xAnchor', 'yAnchor', 'rotation']
 
@@ -34,6 +38,7 @@ class Entity {
     this.isRendered = !('isRendered' in props) || !!props.isRendered
     this.layer = null
     this.renderer = null
+    this.physics = this.hasPhysics ? { ...defaultPhysics, ...props.physics } : { mode: 'none' }
   }
   static type = 'Entity'
   setPosition(position) {
