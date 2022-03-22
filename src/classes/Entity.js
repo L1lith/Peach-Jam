@@ -1,7 +1,7 @@
 import strictDiff from '../functions/strictDiff'
 import Emitter from './Emitter'
 import { Rectangle } from '../boiler/PhysicsShapes'
-import { CollisionsOnly } from '../boiler/PhysicsModes'
+import { Immovable, HardBody } from '../boiler/PhysicsModes'
 
 const defaultPosition = {
   x: 0,
@@ -21,15 +21,14 @@ const defaultPosition = {
 }
 const defaultPhysics = {
   shape: Rectangle,
-  mode: CollisionsOnly
+  mode: Immovable,
+  body: HardBody
 }
 
 export const positionProps = Object.keys(defaultPosition) //['x', 'y', 'width', 'height', 'xAnchor', 'yAnchor', 'rotation']
 
 class Entity {
   constructor(position = {}, props = {}) {
-    //this.id = nanoid()
-    //console.log(position, props)
     this.events = new Emitter()
     this.props = { ...props }
     this.position = { ...defaultPosition, ...position }

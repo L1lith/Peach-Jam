@@ -1,3 +1,4 @@
-export const RigidBody = 'PHYSICS_MODE_RIGID'
-export const CollisionsOnly = 'PHYSICS_MODE_COLLIDER_ONLY'
-export const SoftBody = 'PHYSICS_MODE_SOFTBODY'
+export const Immovable = 'PHYSICS_MODE_STATIC'
+export const Movable = 'PHYSICS_MODE_MOVEMENT'
+export const HardBody = 'PHYSICS_BODY_HARD'
+export const SoftBody = 'PHYSICS_BODY_SOFT'

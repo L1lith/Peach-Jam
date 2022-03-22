@@ -68,7 +68,7 @@ class PixiRenderer extends RenderEngine {
     this.pixiProps = pixiProps
   }
   attachPixi(layer, parent) {
-    console.log(layer.props)
+    //console.log(layer.props)
     if (!isInstance(layer, Layer)) throw new Error("That's not a layer wtf")
     if (!layer.container) layer.container = new Container()
     if (layer.props.hasOwnProperty('z')) layer.container.zIndex = layer.props.z
@@ -78,6 +78,7 @@ class PixiRenderer extends RenderEngine {
     }
     layer.entities.forEach(entity => {
       //entity.setPixiPosition()
+      if (!entity.isRendered) return // Do nothing as it's not rendered
       setPixiPosition(this, entity)
       layer.container.addChild(entity.pixiBody)
       entity.events.on('position', position => {
@@ -86,10 +87,12 @@ class PixiRenderer extends RenderEngine {
       })
     })
     layer.events.on('addEntity', childEntity => {
+      if (!childEntity.isRendered) return // Do nothing as it's not rendered
       setPixiPosition(this, entity)
       layer.container.addChild(childEntity.pixiBody)
     })
     layer.events.on('removeEntity', childEntity => {
+      if (!entity.isRendered) return // Do nothing as it's not rendered
       layer.container.removeChild(childEntity.pixiBody)
     })
     layer.layers.forEach(childLayer => {
