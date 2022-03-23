@@ -12,9 +12,9 @@ import MatterEngine from '../../../dist/matter/MatterEngine'
 
 function App() {
   window.gameEngine = gameEngine
-  const testLevel = new Level(new PixiRenderer(), new MatterEngine())
+  const testLevel = new Level(new PixiRenderer(), new MatterEngine({gravity: {x: -0.2}}))
   const entity1 = new Entity({x: 0, y: 0, width: 50, height: 50}, {img: tomatoImage, physics: {}})
-  const entity2 = new Entity({x: 75, y: 25, width: 10, height: 10, xVelocity: -2, yVelocity: -0.25}, {img: tomatoImage, physics: {movement: Movable}})
+  const entity2 = new Entity({x: 75, y: 15, width: 10, height: 10}, {img: tomatoImage, physics: {movement: Movable}})
   // setInterval(()=>{
   //   entity2.setPosition({y: 25, yVelocity: 0})
   // }, 1000)

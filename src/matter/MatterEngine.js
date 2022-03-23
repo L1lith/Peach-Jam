@@ -12,8 +12,8 @@ class MatterEngine extends PhysicsEngine {
   resetPhysics() {
     super.resetPhysics()
     this.engine = Engine.create()
-    this.engine.gravity.x = this.props.gravity.x
-    this.engine.gravity.y = this.props.gravity.y
+    this.engine.gravity.x = this.props.gravity.x || 0
+    this.engine.gravity.y = this.props.gravity.y || 0
   }
   addEntity(entity) {
     super.addEntity(entity)
@@ -28,8 +28,8 @@ class MatterEngine extends PhysicsEngine {
     if (movement === Immovable) options.isStatic = true
     const { position } = entity
     const physicsBody = (entity.physicsBody = Bodies[targetShape](
-      position.x,
-      position.y,
+      this.getOffsetX(this.getBoundedX(position.x), position.width),
+      this.getOffsetY(this.getBoundedY(position.y), position.height),
       position.width,
       position.height,
       options
@@ -37,11 +37,22 @@ class MatterEngine extends PhysicsEngine {
     Body.setVelocity(physicsBody, { x: position.xVelocity, y: position.yVelocity })
     entity.events.on('position', (diff, position, source) => {
       if (source !== 'physics') {
-        Body.setPosition(physicsBody, { x: position.x, y: position.y })
+        Body.setPosition(physicsBody, {
+          x: this.getOffsetX(this.getBoundedX(position.x), position.width),
+          y: this.getOffsetY(this.getBoundedY(position.y), position.height)
+        })
         Body.setVelocity(physicsBody, { x: position.xVelocity, y: position.yVelocity })
       }
     })
     Composite.add(this.engine.world, [physicsBody])
+  }
+  // truePos + (width / 2) = physicsPos
+  // physicsPos - (width / 2) = truePos
+  getOffsetX(x, width, reverse = false) {
+    return x + Math.pow(-1, reverse) * (width / 2)
+  }
+  getOffsetY(y, height, reverse = false) {
+    return y + Math.pow(-1, reverse) * (height / 2)
   }
   getBoundedX(x) {
     const [min, max] = this.props.worldBounds.x
@@ -74,8 +85,8 @@ class MatterEngine extends PhysicsEngine {
       const physicsBody = entity.physicsBody
       entity.setPosition(
         {
-          x: physicsBody.position.x,
-          y: physicsBody.position.y,
+          x: this.getOffsetX(physicsBody.position.x, entity.position.width, true),
+          y: this.getOffsetY(physicsBody.position.y, entity.position.height, true),
           xVelocity: physicsBody.velocity.x,
           yVelocity: physicsBody.velocity.y
         },
