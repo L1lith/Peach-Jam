@@ -68,7 +68,6 @@ class PixiRenderer extends RenderEngine {
     this.pixiProps = pixiProps
   }
   attachPixi(layer, parent) {
-    //console.log(layer.props)
     if (!isInstance(layer, Layer)) throw new Error("That's not a layer wtf")
     if (!layer.container) layer.container = new Container()
     if (layer.props.hasOwnProperty('z')) layer.container.zIndex = layer.props.z

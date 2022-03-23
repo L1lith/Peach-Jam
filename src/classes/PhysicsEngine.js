@@ -1,12 +1,18 @@
 import autoBind from 'auto-bind'
 
+const defaultProps = {
+  worldBounds: { x: [0, 100], y: [0, 100] },
+  gravity: { x: 0, y: 0 }
+}
+
 class PhysicsEngine {
-  constructor() {
-    this.clearEntities()
+  constructor(props = {}) {
     autoBind(this)
+    this.props = { ...defaultProps, ...props }
+    this.clear()
   }
   static type = 'PhysicsEngine'
-  clearEntities() {
+  clear() {
     this.entities = []
   }
   addEntity(entity) {
@@ -20,8 +26,15 @@ class PhysicsEngine {
       this.entities.splice(index, 1)
     }
   }
-  doPhysicsTick() {
+  doPhysicsTick(delta) {
     // Here: Calculate and call onCollision handlers
+  }
+  resetPhysics() {
+    this.clear()
+    // Do nothing
+  }
+  attachLayer() {
+    //Do Nothing
   }
 }
 

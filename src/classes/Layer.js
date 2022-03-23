@@ -4,11 +4,11 @@ import Emitter from './Emitter'
 import isInstance from '../functions/isInstance'
 
 class Layer {
-  constructor(props = {}, parentLayer = null, engine = null) {
+  constructor(props = {}, parentLayer = null, renderer = null) {
     autoBind(this)
     this.props = props
     this.parentLayer = parentLayer
-    this.engine = engine
+    this.renderer = renderer
     this.events = new Emitter()
     this.clear()
   }
@@ -19,7 +19,7 @@ class Layer {
   }
   addLayer(layer) {
     if (!isInstance(layer, Layer)) throw new Error('Please supply a valid layer instance')
-    layer.engine = this.engine
+    layer.renderer = this.renderer
     if (!this.layers.includes(layer)) {
       this.layers.push(layer)
     }
@@ -36,7 +36,7 @@ class Layer {
   }
   addEntity(entity) {
     if (!isInstance(entity, Entity)) throw new Error('Please supply a valid Entity')
-    entity.engine = this.engine
+    entity.renderer = this.renderer
     if (!this.entities.includes(entity)) {
       this.entities.push(entity)
     }
@@ -44,7 +44,7 @@ class Layer {
   }
   removeEntity(entity) {
     if (!isInstance(entity, Entity)) throw new Error('Please supply a valid Entity')
-    entity.engine = null
+    entity.renderer = null
     const index = this.entities.indexOf(entity)
     if (index >= 0) {
       this.entities.splice(index, 1)

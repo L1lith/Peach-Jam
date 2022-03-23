@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "description": "Flexible and performant game framework for the web",
   "type": "module",
-  "files": ["dist/*.js", "dist/**/*.js"],
+  "files": [
+    "dist/*.js",
+    "dist/**/*.js"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "pretty": "prettier --write \"src/**/*.js\"",
@@ -46,6 +49,7 @@
     "babel-preset-solid": "^1.3.6"
   },
   "optionalDependencies": {
+    "matter-js": "^0.18.0",
     "pixi.js": "^6.2.2"
   }
 }

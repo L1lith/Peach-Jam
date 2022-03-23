@@ -17,11 +17,14 @@ const defaultPosition = {
   rotation: 0,
   verticallyFlipped: false,
   diagonallyFlipped: false,
-  horizontallyFlipped: false
+  horizontallyFlipped: false,
+  // Physics Props
+  xVelocity: 0,
+  yVelocity: 0
 }
 const defaultPhysics = {
   shape: Rectangle,
-  mode: Immovable,
+  movement: Immovable,
   body: HardBody
 }
 
@@ -33,18 +36,19 @@ class Entity {
     this.props = { ...props }
     this.position = { ...defaultPosition, ...position }
     this.hasPhysics =
-      props.physics == 'object' && props.physics !== null && props.physics.mode !== 'none'
+      typeof props.physics == 'object' && props.physics !== null && props.physics.mode !== 'none'
     this.isRendered = !('isRendered' in props) || !!props.isRendered
     this.layer = null
     this.renderer = null
     this.physics = this.hasPhysics ? { ...defaultPhysics, ...props.physics } : { mode: 'none' }
   }
   static type = 'Entity'
-  setPosition(position) {
+  setPosition(position, source = null) {
+    if ('x' in position && !isFinite(position.x)) throw new Error('Invalid X: ' + position.x)
     const oldPosition = this.position
     this.position = { ...this.position, ...position }
     const diff = strictDiff(oldPosition, this.position)
-    if (Object.keys(diff).length > 0) this.events.emit('position', diff, this.position)
+    if (Object.keys(diff).length > 0) this.events.emit('position', diff, this.position, source)
   }
 }
 
