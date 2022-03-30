@@ -8,6 +8,12 @@
          "id":1,
          "name":"Tile Layer 1",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"z",
+                 "type":"int",
+                 "value":20
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":24,
@@ -25,6 +31,11 @@
                  "name":"collision",
                  "type":"bool",
                  "value":true
+                }, 
+                {
+                 "name":"z",
+                 "type":"int",
+                 "value":-10
                 }],
          "type":"tilelayer",
          "visible":true,

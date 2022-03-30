@@ -25,13 +25,22 @@ function getTileImage(tileNumber, tileSets) {
   return null
 }
 
+function parseProperties(layerProperties) {
+  const output = {}
+  layerProperties.forEach(({ name, value }) => {
+    output[name] = value
+  })
+  return output
+}
+
 class TiledMap {
   constructor(data, tileSets) {
     this.root = new Layer()
     // Note: Data should follow the JSON format from the Tiled map editor
     //console.log({ data })
     data.layers.forEach((layerData, i) => {
-      const layer = new Layer({ z: i })
+      const properties = 'properties' in layerData ? parseProperties(layerData.properties) : {}
+      const layer = new Layer({ z: isFinite(properties.z) ? properties.z : i })
       this.root.addLayer(layer)
       const { data, width, height } = layerData
       const tileWidth = 100 / width

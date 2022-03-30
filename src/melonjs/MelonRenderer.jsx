@@ -1,4 +1,14 @@
-import { Loader, Sprite, Application, Texture, Container, utils, Rectangle, settings, SCALE_MODES } from 'pixi.js'
+import {
+  Loader,
+  Sprite,
+  Application,
+  Texture,
+  Container,
+  utils,
+  Rectangle,
+  settings,
+  SCALE_MODES
+} from 'pixi.js'
 import { onMount } from 'solid-js'
 import autoBind from 'auto-bind'
 import Layer from '../classes/Layer'
@@ -12,17 +22,20 @@ utils.skipHello() // Disable the Pixi banner in console
 
 function createPixiBody(entity) {
   if ('pixiBody' in entity) return
-  const {props} = entity
+  const { props } = entity
   let pixiBody
-  const {img} = props
+  const { img } = props
   if (typeof img == 'string') {
     const texture = Texture.from(props.img)
     pixiBody = entity.pixiBody = new Sprite(texture)
   } else if (img?.type == 'sprite') {
-    const {spriteSheet} = img
+    const { spriteSheet } = img
     //console.log(img)
     if (!spriteSheet.texture) spriteSheet.texture = Texture.from(spriteSheet.url)
-    const texture = new Texture(spriteSheet.texture, new Rectangle(img.x, img.y, img.width, img.height))
+    const texture = new Texture(
+      spriteSheet.texture,
+      new Rectangle(img.x, img.y, img.width, img.height)
+    )
     pixiBody = entity.pixiBody = new Sprite(texture)
   } else {
     pixiBody = entity.pixiBody = new Sprite()
@@ -35,7 +48,8 @@ function setPixiPosition(renderer, entity, position) {
   if (!position) position = entity.position
   createPixiBody(entity)
   const pixiBody = entity.pixiBody
-  if ('anchorX' in position || 'anchorY' in position) pixiBody.anchor.set(position.anchorX, position.anchorY)
+  if ('anchorX' in position || 'anchorY' in position)
+    pixiBody.anchor.set(position.anchorX, position.anchorY)
   if ('x' in position) pixiBody.x = renderer.getRealX(position.x)
   if ('y' in position) pixiBody.y = renderer.getRealY(position.y)
   if ('width' in position) pixiBody.width = renderer.getRealX(position.width)
@@ -55,7 +69,7 @@ function setPixiPosition(renderer, entity, position) {
   if ('rotation' in position) pixiBody.angle = position.rotation
   // if ('xScale' in position) {
   //   pixiBody.scale.x = position.scaleX
-    
+
   //   console.log('xScale', position.xScale, pixiBody.scale)
   // }
   // if ('yScale' in position) pixiBody.scale.y = position.scaleY
@@ -106,7 +120,7 @@ class PixiRenderer extends RenderEngine {
       layer.container.removeChild(childLayer.container)
     })
   }
-  
+
   getRealX(x) {
     return (x / 100) * this.width
   }
@@ -117,23 +131,23 @@ class PixiRenderer extends RenderEngine {
     return this.pixiHolder.getBoundingClientRect()
   }
   doMount() {
-      window.pixi = this.pixiApp = new Application({
-        ...this.pixiProps,
-        width: window.innerWidth,
-        height: window.innerHeight
-      })
+    window.pixi = this.pixiApp = new Application({
+      ...this.pixiProps,
+      width: window.innerWidth,
+      height: window.innerHeight
+    })
+    this.width = window.innerWidth
+    this.height = window.innerHeight
+    //this.pixiHolder.appendChild(this.pixiApp.view)
+    const resize = () => {
+      // Resize the renderer
       this.width = window.innerWidth
       this.height = window.innerHeight
-      //this.pixiHolder.appendChild(this.pixiApp.view)
-      const resize = () => {
-        // Resize the renderer
-        this.width = window.innerWidth
-        this.height = window.innerHeight
-        this.pixiApp.renderer.resize(window.innerWidth, window.innerHeight)
-      }
-      window.addEventListener('resize', resize)
-      this.setRoot(this.root)
-      this.pixiHolder.appendChild(this.pixiApp.view)
+      this.pixiApp.renderer.resize(window.innerWidth, window.innerHeight)
+    }
+    window.addEventListener('resize', resize)
+    this.setRoot(this.root)
+    this.pixiHolder.appendChild(this.pixiApp.view)
   }
   doRender(root) {
     this.root = root
@@ -142,10 +156,10 @@ class PixiRenderer extends RenderEngine {
     return <div ref={this.pixiHolder}></div>
   }
   setRoot(layer) {
-    if (!isInstance(layer, Layer)) throw new Error("Expected a valid layer")
+    if (!isInstance(layer, Layer)) throw new Error('Expected a valid layer')
     layer.sortableChildren = true
     const pixiApp = this.pixiApp
-    for(let i = 0, l = pixiApp.stage.children.length; i < l; i++) {
+    for (let i = 0, l = pixiApp.stage.children.length; i < l; i++) {
       const child = pixiApp.stage.children[i]
       pixiApp.stage.removeChild(child)
     }
