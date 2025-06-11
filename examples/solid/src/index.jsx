@@ -14,9 +14,9 @@ import theForest from './assets/maps/theForest'
 function App() {
   //window.gameEngine = gameEngine
   const testLevel = new Level(new PixiRenderer(), new MatterEngine({gravity: {y: 0}}))
-  const entity1 = new Entity({x: 0, y: 0, width: 50, height: 50}, {img: tomatoImage, physics: {}})
+  const entity1 = new Entity({x: 0, y: 0, z: 10, width: 50, height: 50}, {img: tomatoImage, physics: {}})
   const entity2 = new Entity({x: 75, y: 15, width: 10, height: 10}, {img: tomatoImage, physics: {movement: Movable}})
-  theForest.root.zIndex = -10
+  //theForest.root.zIndex = -10
   testLevel.root.sortableChildren = true
   testLevel.root.addLayer(theForest.root)
   // setInterval(()=>{

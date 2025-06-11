@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"..\/..\/..\/..\/..\/..\/Corrupt-Carnation\/public\/data\/img\/character.png",
+ "imageheight":16,
+ "imagewidth":16,
+ "margin":0,
+ "name":"character",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.8.2",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.8"
+}

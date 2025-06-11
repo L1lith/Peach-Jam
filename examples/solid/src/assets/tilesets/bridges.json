@@ -1,0 +1,14 @@
+{ "columns":16,
+ "image":"..\/..\/..\/..\/..\/..\/Corrupt-Carnation\/public\/data\/img\/bridges.png",
+ "imageheight":320,
+ "imagewidth":256,
+ "margin":0,
+ "name":"bridges",
+ "spacing":0,
+ "tilecount":320,
+ "tiledversion":"1.8.2",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.8"
+}
